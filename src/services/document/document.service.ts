@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { 
-  DocumentBatchExecutionException, 
-  DocumentNotCreatedException, 
-  DocumentNotDeletedException, 
-  DocumentNotFoundException, 
-  DocumentNotUpdatedException 
+import {
+  DocumentBatchExecutionException,
+  DocumentNotCreatedException,
+  DocumentNotDeletedException,
+  DocumentNotFoundException,
+  DocumentNotUpdatedException,
 } from '../../utils/exceptions/document.exception';
 import { getOrThrow } from '../../utils/helpers/common.helper';
 import { DocumentDto } from './dto/document.dto';
@@ -15,9 +15,7 @@ import { DocumentPaginatedRepsonse } from './types/paginated.response';
 
 @Injectable()
 export class DocumentService {
-  constructor(
-    private readonly documentRepository: DocumentRepository,
-  ) {}
+  constructor(private readonly documentRepository: DocumentRepository) {}
 
   async getDocumentByIDorThrow(id: string) {
     return getOrThrow(
@@ -54,7 +52,9 @@ export class DocumentService {
     }
   }
 
-  async getManyAndCount(dto: BatchDocumentQueryDto): Promise<DocumentPaginatedRepsonse> {
+  async getManyAndCount(
+    dto: BatchDocumentQueryDto,
+  ): Promise<DocumentPaginatedRepsonse> {
     try {
       const result = await this.documentRepository.getMany(dto);
 
@@ -62,10 +62,11 @@ export class DocumentService {
 
       return {
         results: result.instances,
-        pagesCount: result.count % dto.limit === 0 ? pagesCount : pagesCount + 1,
+        pagesCount:
+          result.count % dto.limit === 0 ? pagesCount : pagesCount + 1,
         currentPage: dto.page,
         rows: result.count,
-      }
+      };
     } catch {
       throw new DocumentBatchExecutionException();
     }

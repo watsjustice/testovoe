@@ -32,11 +32,9 @@ import { Module } from '@nestjs/common';
             migrationsDir: 'src/database/migrations',
           },
           ...dbConfig,
-        }
-      }
-    })
-  ]
+        };
+      },
+    }),
+  ],
 })
-
-export class DatabaseModule {};
-
+export class DatabaseModule {}

@@ -7,8 +7,8 @@ export default new DataSource({
   ...database,
   migrations: [__dirname + 'database/migrations/**/*{.ts,.js}'],
   synchronize: false,
-}).initialize().then( async () => {
-  process.exit();
 })
-
-
+  .initialize()
+  .then(async () => {
+    process.exit();
+  });

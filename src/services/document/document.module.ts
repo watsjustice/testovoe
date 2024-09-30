@@ -7,12 +7,8 @@ import { Document } from './entities/document.entity';
 
 @Module({
   controllers: [DocumentController],
-  providers: [
-    DocumentService,
-    DocumentRepository,
-  ],
+  providers: [DocumentService, DocumentRepository],
   imports: [TypeOrmModule.forFeature([Document])],
   exports: [DocumentService],
 })
-
 export class DocumentModule {}
