@@ -4,6 +4,6 @@ import { IsString } from 'class-validator';
 
 export class DocumentDto {
     @ApiProperty()
-    @IsString({ message: ValidationEnum.NotString })
+    @IsString({ message: ValidationEnum.notString })
     title: string;
 }

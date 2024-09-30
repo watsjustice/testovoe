@@ -4,6 +4,6 @@ import { IsUUID } from 'class-validator';
 
 export class IdDto {
     @ApiProperty()
-    @IsUUID('all', { message: ValidationEnum.NotUUID })
+    @IsUUID('all', { message: ValidationEnum.notUUID })
     id: string;
 }

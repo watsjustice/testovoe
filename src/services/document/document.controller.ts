@@ -1,7 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query } from "@nestjs/common";
 import { ApiResponse, ApiTags } from "@nestjs/swagger";
 import { IdDto } from "../../utils/dto/id.dto";
-import { IdResponseType } from "../../utils/type/id.response";
 import { DocumentService } from "./document.service";
 import { DocumentDto } from "./dto/document.dto";
 import { BatchDocumentQueryDto } from "./dto/search-document.dto";
@@ -17,17 +16,19 @@ export class DocumentController {
   ) {}
 
   @Put()
+  @ApiResponse({ type: Document })
   async updateDocument(@Query() Iddto: IdDto, @Body() dto: DocumentDto) {
     return this.documentService.update(Iddto.id, dto);
   }
 
   @Post()
-  @ApiResponse({type: IdResponseType})
+  @ApiResponse({type: Document})
   async createDocument(@Body() dto: DocumentDto) {
     return this.documentService.create(dto);
   }
 
   @Delete()
+  @ApiResponse({ type: Document })
   async deleteAmenity(@Query() dto: IdDto) {
     return this.documentService.delete(dto.id);
   }
