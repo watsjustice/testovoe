@@ -1,0 +1,22 @@
+export enum ValidationEnum {
+    NotString = 'Должно быть строкой',
+    NotInt = 'Должно быть целым числом',
+    NotUUID = 'Не соответствует типу UUID',
+    NotEmail = 'Введён некорректный почтовый адрес',
+    IncorrectPhoneNumber = 'Введён некорректный номер телефона',
+    NotArray = 'Должно быть массивом',
+    NotJWT = 'Не является JWT',
+    NotFile = 'Не является файлом',
+    NameNotEmpty = 'Название не должно быть пустым',
+    NotValueType = 'Не соответствует ожидаемому типу данных',
+    NotNumber = 'Должно быть числом',
+    NotRateType = 'Данного тарифа не существует',
+    NotBoolean = 'Должно быть булевым значением',
+    NotConfigType = 'Данного типа конфигурации не существует',
+    NotDecimal = 'Должно быть типом decimal',
+    NotInt32 = 'Должно быть типом int32',
+    NotValidStringSize = 'Строка не должна превышать длину в 80 символов',
+    NotTimeZone = 'Не является часовым поясом',
+    NotDateString = 'Не является датой',
+  }
+  

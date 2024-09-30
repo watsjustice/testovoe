@@ -1,0 +1,60 @@
+env:
+  node: true
+  commonjs: true
+  es2022: true
+  mocha: true
+extends:
+  - eslint:recommended
+  - prettier
+overrides:
+  - files:
+      - '*.ts'
+    parser: '@typescript-eslint/parser'
+    parserOptions:
+      ecmaVersion: latest
+    plugins:
+      - '@typescript-eslint'
+    extends:
+      - 'plugin:@typescript-eslint/eslint-recommended'
+      - 'plugin:@typescript-eslint/recommended'
+      - prettier
+    rules:
+      '@typescript-eslint/no-var-requires': warn # on the stage 1 we often require modules from #core-api
+rules:
+  no-var: error
+  prefer-const:
+    - error
+    - destructuring: all
+  no-empty: error
+  no-useless-catch: error
+  curly: error
+  brace-style:
+    - error
+    - 1tbs
+  padding-line-between-statements:
+    - error
+    - blankLine: always
+      prev: block-like
+      next: '*'
+    - blankLine: always
+      prev: '*'
+      next:
+        - block-like
+        - return
+        - throw
+  no-unused-vars:
+    - error
+    - argsIgnorePattern: '^_'
+      ignoreRestSiblings: true
+      destructuredArrayIgnorePattern: '^_'
+  no-console: error
+
+  # rules those are not match the current codebase
+  no-case-declarations: warn
+  no-fallthrough: warn
+  no-inner-declarations: warn
+  no-unsafe-finally: warn
+  no-ex-assign: warn
+
+  # temporary solution until prettier is installed
+  no-mixed-spaces-and-tabs: off
