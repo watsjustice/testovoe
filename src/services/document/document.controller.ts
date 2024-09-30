@@ -1,19 +1,26 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query } from "@nestjs/common";
-import { ApiResponse, ApiTags } from "@nestjs/swagger";
-import { IdDto } from "../../utils/dto/id.dto";
-import { DocumentService } from "./document.service";
-import { DocumentDto } from "./dto/document.dto";
-import { BatchDocumentQueryDto } from "./dto/search-document.dto";
-import { Document } from "./entities/document.entity";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  Query,
+} from '@nestjs/common';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { IdDto } from '../../utils/dto/id.dto';
+import { DocumentService } from './document.service';
+import { DocumentDto } from './dto/document.dto';
+import { BatchDocumentQueryDto } from './dto/search-document.dto';
+import { Document } from './entities/document.entity';
 
 const routeName = '/document';
 
 @ApiTags(routeName)
 @Controller(routeName)
 export class DocumentController {
-  constructor(
-    private documentService: DocumentService,
-  ) {}
+  constructor(private documentService: DocumentService) {}
 
   @Put()
   @ApiResponse({ type: Document })
@@ -22,7 +29,7 @@ export class DocumentController {
   }
 
   @Post()
-  @ApiResponse({type: Document})
+  @ApiResponse({ type: Document })
   async createDocument(@Body() dto: DocumentDto) {
     return this.documentService.create(dto);
   }

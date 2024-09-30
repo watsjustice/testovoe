@@ -17,26 +17,29 @@ export class DocumentRepository extends Repository<Document> {
       .from(Document, 'doc')
       .addSelect(
         `ABS(DATE_PART('second', doc.updatedAt - doc.createdAt))`,
-        'difference'
+        'difference',
       )
       .where({ id: id })
-      .getRawOne()
+      .getRawOne();
   }
 
-  async getMany(dto: BatchDocumentQueryDto): Promise<DocumentInstanceWithCountType> {
+  async getMany(
+    dto: BatchDocumentQueryDto,
+  ): Promise<DocumentInstanceWithCountType> {
     const result = await this.createQueryBuilder('doc')
       .select('*')
       .addSelect(
         `ABS(DATE_PART('second', doc.updatedAt - doc.createdAt))`,
-        'difference'
+        'difference',
       )
       .where(
-        new Brackets( (qb) => {
+        new Brackets((qb) => {
           if (dto.title) {
-            qb
-              .where('LOWER(doc.title) LIKE LOWER(:title)', { title: `%${dto.title}%` })
+            qb.where('LOWER(doc.title) LIKE LOWER(:title)', {
+              title: `%${dto.title}%`,
+            });
           }
-        })
+        }),
       )
       .take(dto.limit === 0 ? null : dto.limit)
       .skip(dto.page > 1 ? (dto.page - 1) * dto.limit : 0)
@@ -45,41 +48,41 @@ export class DocumentRepository extends Repository<Document> {
 
     return {
       instances: result,
-      count: result.length
-    }
+      count: result.length,
+    };
   }
 
   async createOne(dto: DocumentDto): Promise<Document> {
-    const result = await this.createQueryBuilder() 
-          .insert()
-          .into(Document)
-          .values({ 
-            ...dto, 
-            createdAt: new Date() 
-          })
-          .returning('id')
-          .execute()
+    const result = await this.createQueryBuilder()
+      .insert()
+      .into(Document)
+      .values({
+        ...dto,
+        createdAt: new Date(),
+      })
+      .returning('id')
+      .execute();
 
     return result.generatedMaps[0] as Document;
   }
 
   async deleteOne(id: string): Promise<Document> {
     const result = await this.createQueryBuilder()
-        .softDelete()
-        .from(Document)
-        .where({ id: id })
-        .returning('*')
-        .execute();
+      .softDelete()
+      .from(Document)
+      .where({ id: id })
+      .returning('*')
+      .execute();
 
     return result.generatedMaps[0] as Document;
   }
 
   async updateOne(dto: DocumentDto, id: string): Promise<Document> {
     const result = await this.createQueryBuilder()
-      .update() 
+      .update()
       .set({ ...dto })
-      .where({id: id })
-      .execute()
+      .where({ id: id })
+      .execute();
 
     return result.generatedMaps[0] as Document;
   }

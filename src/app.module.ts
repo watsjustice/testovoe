@@ -11,7 +11,7 @@ import { DocumentModule } from './services/document/document.module';
       load: [configuration],
     }),
     DatabaseModule,
-    DocumentModule
-  ]
+    DocumentModule,
+  ],
 })
 export class AppModule {}

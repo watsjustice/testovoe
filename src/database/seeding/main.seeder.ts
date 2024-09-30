@@ -9,11 +9,10 @@ export default class MainSeeder implements Seeder {
   ): Promise<any> {
     const documentRepo = dataSource.getRepository(Document);
 
-    await documentRepo.query("TRUNCATE document;")
+    await documentRepo.query('TRUNCATE document;');
 
     const documentFactory = factoryManager.get(Document);
 
     await documentFactory.saveMany(100);
-  };
+  }
 }
-

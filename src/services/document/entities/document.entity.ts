@@ -5,7 +5,7 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  DeleteDateColumn
+  DeleteDateColumn,
 } from 'typeorm';
 
 @Entity()
@@ -15,7 +15,7 @@ export class Document {
   id: string;
 
   @ApiProperty()
-  @Column({ type: 'varchar', length: 255})
+  @Column({ type: 'varchar', length: 255 })
   title: string;
 
   @ApiProperty()
