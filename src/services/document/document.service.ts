@@ -1,5 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { DocumentBatchExecutionException, DocumentNotCreatedException, DocumentNotDeletedException, DocumentNotFoundException, DocumentNotUpdatedException } from '../../utils/exceptions/document.exception';
+import { 
+  DocumentBatchExecutionException, 
+  DocumentNotCreatedException, 
+  DocumentNotDeletedException, 
+  DocumentNotFoundException, 
+  DocumentNotUpdatedException 
+} from '../../utils/exceptions/document.exception';
 import { getOrThrow } from '../../utils/helpers/common.helper';
 import { DocumentDto } from './dto/document.dto';
 import { DocumentRepository } from './repository/document.repository';
@@ -28,19 +34,17 @@ export class DocumentService {
     }
   }
 
-  //TODO: RETURN 
-  async update(id: string, dto: DocumentDto): Promise<void> {
+  async update(id: string, dto: DocumentDto): Promise<Document> {
     await this.getDocumentByIDorThrow(id);
 
     try {
-      await this.documentRepository.updateOne(dto, id);
+      return this.documentRepository.updateOne(dto, id);
     } catch {
       throw new DocumentNotUpdatedException(id);
     }
   }
 
-  //TODO: RETURN
-  async delete(id: string): Promise<void> {
+  async delete(id: string): Promise<Document> {
     await this.getDocumentByIDorThrow(id);
 
     try {
@@ -62,8 +66,7 @@ export class DocumentService {
         currentPage: dto.page,
         rows: result.count,
       }
-    } catch (err) {
-      console.log(err);
+    } catch {
       throw new DocumentBatchExecutionException();
     }
   }
