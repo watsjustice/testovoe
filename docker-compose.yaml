@@ -5,9 +5,9 @@ services:
     image: postgres:14-alpine
     restart: 'unless-stopped'
     environment:
-      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_DB: ${POSTGRES_DB_NAME}
       POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_PASSWORD: ${POSTGRES_PWD}
     command: -p 5432
     env_file:
       - .env
@@ -20,14 +20,15 @@ services:
     container_name: backend
     build:
       context: ./
-      args: $PORT
+      args:
+        PORT: ${PORT}
     restart: always
     environment:
       - PORT=${PORT}
       - POSTGRES_HOST=${POSTGRES_HOST}
       - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_DB=${POSTGRES_DB}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB_NAME}
+      - POSTGRES_PASSWORD=${POSTGRES_PWD}
     env_file:
       - .env
     ports:
